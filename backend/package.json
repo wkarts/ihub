@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "2.0.0",
-  "description": "izing.open.io - sistema de atendimentos multicanal",
+  "description": "ihub - sistema de atendimentos multicanal",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -17,7 +17,7 @@
   "engines": {
     "node": ">=18"
   },
-  "author": "Durans (lumardyelson@gmail.com)",
+  "author": "Wkarts (wkarts@gmail.com)",
   "private": true,
   "license": "AGPL-3.0-or-later",
   "dependencies": {
