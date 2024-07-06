@@ -4,31 +4,31 @@ on:
   push:
     branches:
       - master
+      - release/*
     paths:
       - 'frontend/**'
   pull_request:
     branches:
       - master
+      - release/*
     paths:
       - 'frontend/**'
 
 jobs:
   deploy_front:
-    if: github.repository == 'wkarts/ihub'
     runs-on: ubuntu-22.04 
-    environment: production 
     steps:
-      - name: "Checkout" 
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: "Use NodeJS"          
-        uses: actions/setup-node@v4
+      - name: Use NodeJS
+        uses: actions/setup-node@v2
         with:
           node-version: '20.x'
-    
+
       - name: Verify Node.js version
         run: node -v
-    
+
       - name: Install Quasar CLI
         run: npm install -g @quasar/cli
 
@@ -51,7 +51,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image for master
+        if: github.ref == 'refs/heads/master'
         run: |
-          docker buildx create --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t wkarts/ihub-frontend:latest --push ./frontend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-frontend:developer-${{ github.sha }} --push ./frontend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-frontend:developer --push ./frontend
+
+      - name: Build and push Docker image for release
+        if: startsWith(github.ref, 'refs/heads/release/')
+        run: |
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-frontend:release-${{ github.sha }} --push ./frontend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-frontend:v${{ github.ref_name }} --push ./frontend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-frontend:latest --push ./frontend
