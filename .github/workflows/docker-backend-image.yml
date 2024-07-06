@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - main
-      - develop
+      - master
       - release/*
   pull_request:
     branches:
       - main
-      - develop
+      - master
       - release/*
 
 jobs:
