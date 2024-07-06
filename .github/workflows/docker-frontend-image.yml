@@ -3,13 +3,11 @@ name: Build and Push Frontend Image
 on:
   push:
     branches:
-      - main
-      - develop
+      - master
       - release/*
   pull_request:
     branches:
-      - main
-      - develop
+      - master
       - release/*
 
 jobs:
@@ -38,6 +36,19 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Build and push Docker image
+        if: github.ref == 'refs/heads/master'
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./frontend/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/frontend:develop-${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/frontend:develop
+
+      - name: Build and push Docker image for release
+        if: startsWith(github.ref, 'refs/heads/release/')
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -46,5 +57,5 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/frontend:latest
-            ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
-            ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.ref_name }}
+            ${{ secrets.DOCKER_USERNAME }}/frontend:release-${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/frontend:v${{ github.ref_name }}
