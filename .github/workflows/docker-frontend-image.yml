@@ -16,7 +16,6 @@ on:
 
 jobs:
   deploy_front:
-    if: github.repository == 'wkarts/ihub'
     runs-on: ubuntu-22.04 
     environment: production 
     steps:
