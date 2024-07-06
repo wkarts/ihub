@@ -51,10 +51,13 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t wkarts/ihub-backend:develop --push ./backend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-backend:develop-${{ github.sha }} --push ./backend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-backend:develop --push ./backend
 
       - name: Build and push Docker image for release
         if: startsWith(github.ref, 'refs/heads/release/')
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t wkarts/ihub-backend:release-${{ github.sha }} -t wkarts/ihub-backend:v${{ github.ref_name }} -t wkarts/ihub-backend:latest --push ./backend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-backend:latest --push ./backend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-backend:release-${{ github.sha }} --push ./backend
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKERHUB_USERNAME }}/ihub-backend:v${{ github.ref_name }} --push ./backend
