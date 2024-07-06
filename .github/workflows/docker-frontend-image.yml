@@ -44,8 +44,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/frontend:develop-${{ github.sha }}
-            ${{ secrets.DOCKER_USERNAME }}/frontend:develop
+            #${{ secrets.DOCKERHUB_USERNAME }}/frontend:develop-${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:develop
 
       - name: Build and push Docker image for release
         if: startsWith(github.ref, 'refs/heads/release/')
@@ -56,6 +56,6 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/frontend:latest
-            ${{ secrets.DOCKER_USERNAME }}/frontend:release-${{ github.sha }}
-            ${{ secrets.DOCKER_USERNAME }}/frontend:v${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+            #${{ secrets.DOCKERHUB_USERNAME }}/frontend:release-${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:v${{ github.ref_name }}
