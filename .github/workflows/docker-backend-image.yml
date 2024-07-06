@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy_back:
-    if: github.repository == 'wkarts/izing.open.io'
+    if: github.repository == 'wkarts/ihub'
     runs-on: ubuntu-22.04
     environment: production
     steps:
