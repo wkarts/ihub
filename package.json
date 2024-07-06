@@ -1,7 +1,7 @@
 {
-  "name": "izing.open.io",
+  "name": "iHUB",
   "version": "2.0.1",
-  "description": "izing.open.io - sistema de atendimentos multicanal",
+  "description": "iHUB - sistema de atendimentos multicanal",
   "main": "index.js",
   "private": true,
   "repository": {
