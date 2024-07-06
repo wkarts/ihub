@@ -12,7 +12,7 @@
     "release": "semantic-release --no-ci",
     "husk": "husky install"
   },
-  "author": "Durans (wkarts@gmail.com)",
+  "author": "Wkarts (wkarts@gmail.com)",
   "license": "AGPL-3.0-or-later",
   "dependencies": {},
   "devDependencies": {
