@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - master
+      - release/*
     paths:
       - 'frontend/**'
   pull_request:
     branches:
       - master
+      - release/*
     paths:
       - 'frontend/**'
 
@@ -51,7 +53,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image for master
+        if: github.ref == 'refs/heads/master'
         run: |
           docker buildx create --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t wkarts/ihub-frontend:latest --push ./frontend
+          docker buildx build --platform linux/amd64,linux/arm64 -t wkarts/ihub-frontend:develop --push ./frontend
+
+      - name: Build and push Docker image for release
+        if: startsWith(github.ref, 'refs/heads/release/')
+        run: |
+          docker buildx create --use
+          docker buildx build --platform linux/amd64,linux/arm64 -t wkarts/ihub-frontend:release-${{ github.sha }} -t wkarts/ihub-frontend:v${{ github.ref_name }} -t wkarts/ihub-frontend:latest --push ./frontend
