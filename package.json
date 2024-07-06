@@ -6,13 +6,13 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:ldurans/izing.io.git"
+    "url": "git@github.com:wkarts/ihub"
   },
   "scripts": {
     "release": "semantic-release --no-ci",
     "husk": "husky install"
   },
-  "author": "Durans (lumardyelson@gmail.com)",
+  "author": "Durans (wkarts@gmail.com)",
   "license": "AGPL-3.0-or-later",
   "dependencies": {},
   "devDependencies": {
