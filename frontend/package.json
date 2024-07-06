@@ -1,9 +1,9 @@
 {
-  "name": "izing",
+  "name": "ihub",
   "version": "1.9.0",
   "description": "Bot Multiatendimento, multicanais e multiempresas.",
-  "productName": "IZING",
-  "author": "Durans <lumardyelson@gmail.com>",
+  "productName": "IHUB",
+  "author": "wkarts <wkarts@gmail.com>",
   "private": false,
   "license": "AGPL-3.0-or-later",
   "scripts": {
