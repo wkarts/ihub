@@ -1,5 +1,5 @@
 #!/bin/bash
-echo  "Updating IZING, please wait."
+echo  "Atualizando ɪ-🅷🆄🅱, aguarde."
 cd  ~
 cd izing.io
 git checkout master
@@ -12,4 +12,4 @@ npx sequelize db:migrate
 #npx sequelize db:seed
 pm2 restart all
 
-echo  "Update finished. Enjoy!"
+echo  "Atualização concluída. Aproveite!"
