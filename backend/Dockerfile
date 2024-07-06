@@ -1,4 +1,4 @@
-# Consistent capitalization for FROM and AS
+# Use consistent capitalization for FROM and AS
 FROM node:18-bookworm-slim AS global-deps-stage
 
 WORKDIR /app
@@ -34,6 +34,7 @@ FROM build-stage AS production-stage
 ENV NODE_ENV=production
 
 # Ensure docker-entrypoint.sh exists and is in the correct directory
-COPY docker-entrypoint.sh .
-RUN chmod +x docker-entrypoint.sh
-ENTRYPOINT ["./docker-entrypoint.sh"]
+# Make sure this file is in the project root or adjust the path accordingly
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
